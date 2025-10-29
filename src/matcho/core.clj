@@ -20,12 +20,12 @@
       {:expected (pr-str p) :but x})
 
     (and (keyword? p) (s/get-spec p))
-    (let [sp (s/get-spec p)]
-      (when-not (s/valid? p x)
-        {:expected (str "conforms to spec: " p) :but (s/explain-data p x)}))
+    (when-not (s/valid? p x)
+      {:expected (str "conforms to spec: " p)
+       :but (s/explain-data p x)})
 
     :else (when-not (or (= p x)
-                        (and (decimal? x) (number? p) (== p x)))
+                        (and (number? x) (number? p) (== p x)))
             {:expected p :but x})))
 
 (defn- match-recur [errors path x pattern]
