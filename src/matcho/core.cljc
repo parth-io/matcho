@@ -125,7 +125,7 @@
          errors#   (apply match* x# patterns#)]
      (if-not (empty? errors#)
        (let [builded# (build-expected-actual errors#)]
-         (do-report {:message  (str "Matcho pattern mismatch:\n\n" (with-out-str (clojure.pprint/pprint (build-diff errors#))))
+         (do-report {:message  (str "Matcho pattern mismatch:\n\n" (with-out-str (#?(:clj clojure.pprint/pprint :cljr prn) (build-diff errors#))))
                      :type     :fail
                      :actual   x#
                      :expected (:expected builded#)}))
